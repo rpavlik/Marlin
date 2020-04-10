@@ -857,6 +857,11 @@ class Temperature {
         #endif
       );
     #endif
+    #if ENABLED(HEATER_0_USES_ADS1118)
+      static int16_t read_ads1118(
+          const uint8_t hindex=0
+      );
+    #endif
 
     static void checkExtruderAutoFans();
 

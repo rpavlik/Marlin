@@ -60,8 +60,9 @@
 #endif
 
 #define MAX6675_SEPARATE_SPI (EITHER(HEATER_0_USES_MAX6675, HEATER_1_USES_MAX6675) && PINS_EXIST(MAX6675_SCK, MAX6675_DO))
+#define ADS1118_SEPARATE_SPI (EITHER(HEATER_0_USES_ADS1118, HEATER_1_USES_ADS1118) && PINS_EXIST(ADS1118_SCK, ADS1118_DO, ADS1118_DIN, ADS1118_CS))
 
-#if MAX6675_SEPARATE_SPI
+#if MAX6675_SEPARATE_SPI || ADS1118_SEPARATE_SPI
   #include "../libs/private_spi.h"
 #endif
 
@@ -1042,6 +1043,8 @@ void Temperature::manage_heater() {
     if (temp_hotend[1].celsius < _MAX(HEATER_1_MINTEMP, HEATER_1_MAX6675_TMIN + .01)) min_temp_error(H_E1);
   #endif
 
+  //! @todo add ads1118 equivalent here
+
   millis_t ms = millis();
 
   #if HOTENDS
@@ -1583,6 +1586,7 @@ void Temperature::updateTemperaturesFromRawValues() {
   #if ENABLED(HEATER_1_USES_MAX6675)
     temp_hotend[1].raw = READ_MAX6675(1);
   #endif
+  //! @todo add ads1118 equivalents here
   #if HOTENDS
     HOTEND_LOOP() temp_hotend[e].celsius = analog_to_celsius_hotend(temp_hotend[e].raw, e);
   #endif
@@ -1755,6 +1759,8 @@ void Temperature::init() {
   #if ENABLED(HEATER_1_USES_MAX6675)
     OUT_WRITE(MAX6675_SS2_PIN, HIGH);
   #endif
+
+  //! @todo add ads1118 equivalent here
 
   HAL_adc_init();
 
@@ -2167,6 +2173,8 @@ void Temperature::disable_all_heaters() {
   }
 
 #endif // PROBING_HEATERS_OFF
+
+//! @todo add ads1118 equivalent here
 
 #if HAS_MAX6675
 
