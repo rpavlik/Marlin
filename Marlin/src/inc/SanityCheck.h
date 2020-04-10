@@ -1551,7 +1551,7 @@ static_assert(Y_MAX_LENGTH >= Y_BED_SIZE, "Movement bounds (Y_MIN_POS, Y_MAX_POS
  */
 #if !HAS_HEATER_0
   #error "HEATER_0_PIN not defined for this board."
-#elif !ANY_PIN(TEMP_0, MAX6675_SS)
+#elif !ANY_PIN(TEMP_0, MAX6675_SS, ADS1118_CS)
   #error "TEMP_0_PIN not defined for this board."
 #elif ((defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)) && !PINS_EXIST(E0_STEP, E0_DIR))
   #error "E0_STEP_PIN or E0_DIR_PIN not defined for this board."
@@ -1564,6 +1564,8 @@ static_assert(Y_MAX_LENGTH >= Y_BED_SIZE, "Movement bounds (Y_MIN_POS, Y_MAX_POS
 // Pins are required for heaters
 #if ENABLED(HEATER_0_USES_MAX6675) && !PIN_EXISTS(MAX6675_SS)
   #error "MAX6675_SS_PIN (required for TEMP_SENSOR_0) not defined for this board."
+#elif ENABLED(HEATER_0_USES_ADS1118) && !PIN_EXISTS(ADS1118_CS)
+  #error "ADS1118_CS_PIN (required for TEMP_SENSOR_0) not defined for this board."
 #elif (HOTENDS > 1 || ENABLED(HEATERS_PARALLEL)) && !HAS_HEATER_1
   #error "HEATER_1_PIN not defined for this board."
 #endif
@@ -1571,9 +1573,11 @@ static_assert(Y_MAX_LENGTH >= Y_BED_SIZE, "Movement bounds (Y_MIN_POS, Y_MAX_POS
 #if HOTENDS > 1
   #if ENABLED(HEATER_1_USES_MAX6675) && !PIN_EXISTS(MAX6675_SS2)
     #error "MAX6675_SS2_PIN (required for TEMP_SENSOR_1) not defined for this board."
+  #elif ENABLED(HEATER_1_USES_ADS1118) && !PIN_EXISTS(ADS1118_CS)
+    #error "ADS1118_CS_PIN (required for TEMP_SENSOR_1) not defined for this board."
   #elif TEMP_SENSOR_1 == 0
     #error "TEMP_SENSOR_1 is required with 2 or more HOTENDS."
-  #elif !ANY_PIN(TEMP_1, MAX6675_SS2)
+  #elif !ANY_PIN(TEMP_1, MAX6675_SS2, ADS1118_CS)
     #error "TEMP_1_PIN not defined for this board."
   #elif ENABLED(TEMP_SENSOR_1_AS_REDUNDANT)
     #error "HOTENDS must be 1 with TEMP_SENSOR_1_AS_REDUNDANT."

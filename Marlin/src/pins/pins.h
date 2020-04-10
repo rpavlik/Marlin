@@ -260,6 +260,8 @@
   #include "mega/pins_PICAOLD.h"                // ATmega2560                             env:mega2560
 #elif MB(INTAMSYS40)
   #include "mega/pins_INTAMSYS40.h"             // ATmega2560                             env:mega2560
+#elif MB(MIGHTYBOARD_REVG)
+  #include "mega/pins_MIGHTYBOARD_REVG.h"       // ATmega1280, ATmega2560                 env:mega1280 env:mega2560
 
 //
 // ATmega1281, ATmega2561

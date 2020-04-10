@@ -145,6 +145,7 @@
 #define BOARD_PICA_REVB               1322  // PICA Shield (original version)
 #define BOARD_PICA                    1323  // PICA Shield (rev C or later)
 #define BOARD_INTAMSYS40              1324  // Intamsys 4.0 (Funmat HT)
+#define BOARD_MIGHTYBOARD_REVG        1325  // Makerbot Mightyboard Revision G/H
 
 //
 // ATmega1281, ATmega2561
